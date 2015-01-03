@@ -12,9 +12,12 @@ public class Human implements Steppable {
 
 	private Obstacle obst = null;
 	private Int2D oldPos;
-
-	public Human(Int2D pos) {
+	private Boolean rightDirection;
+	private int rule;
+	public Human(Int2D pos, Boolean rightDirection, int rule) {
 		this.oldPos = pos;
+		this.rightDirection = rightDirection;
+		this.rule = rule;
 	}
 
 	@Override
@@ -23,29 +26,32 @@ public class Human implements Steppable {
 		Simulation simulation = (Simulation) state;
 		SparseGrid2D area = simulation.getArea();
 		
-		// Die Ameise wei� durch area.getObjectLocation(this), wo sie sich befindet.
+		// Der Mensch wei� durch area.getObjectLocation(this), wo er sich befindet.
 		Int2D pos = area.getObjectLocation(this);
 		boolean shallDrop = false;
-		
-		// In bag befinden sich alle Objekte, der aktuellen Position.
-		Bag bag = area.getObjectsAtLocation(pos);
-		for (Object object : bag) {
-			if (object instanceof Obstacle) {
-				// Wenn das Objekt nicht Null ist, nicht dem eigenen Objekt entspricht und nicht 
-				// bereits getragen wird, wird es fallen gelassen.
-				if (obst != null && !object.equals(obst)
-						&& !((Obstacle) object).isCarried()) {
-					shallDrop = true;
-					break;
-				} else {
-					//Das Objekt wird aufgenommen.
-					obst = (Obstacle) object;
-					obst.setCarried(true);
-					break;
+		if(rule == 1){
+			
+			
+			
+			// In bag befinden sich alle Objekte, der aktuellen Position.
+			Bag bag = area.getObjectsAtLocation(pos);
+			for (Object object : bag) {
+				if (object instanceof Obstacle) {
+					// Wenn das Objekt nicht Null ist, nicht dem eigenen Objekt entspricht und nicht 
+					// bereits getragen wird, wird es fallen gelassen.
+					if (obst != null && !object.equals(obst)
+							&& !((Obstacle) object).isCarried()) {
+						shallDrop = true;
+						break;
+					} else {
+						//Das Objekt wird aufgenommen.
+						obst = (Obstacle) object;
+						obst.setCarried(true);
+						break;
+					}
 				}
 			}
 		}
-		
 		// Falls das Objekt abgelegt werden soll, springt die Ameise an die neue Position (old + stepSize),
 		// das Objekt wird an der "alten" Position abgelegt und nun nicht mehr getragen.
 		if (shallDrop) {
@@ -66,7 +72,45 @@ public class Human implements Steppable {
 		}
 		oldPos = pos;
 	}
-
+	
+	public Int2D rule1 (Int2D pos, SparseGrid2D area){
+		int nextFieldDiff;
+		if(rightDirection)
+			nextFieldDiff = 1;
+		else
+			nextFieldDiff = -1;
+		Int2D checkPos;
+		//check next Field
+		checkPos =new Int2D(pos.x + nextFieldDiff, pos.y);
+		// Human in same direction
+		if(getHumanAtPos(checkPos, area) == 1){
+			return pos;
+		}
+		
+	}
+	
+	// return Values:
+	// -1: Human in other direction at pos
+	// 0: no Human at pos
+	// 1: Human in same direction at pos
+	public int getHumanAtPos(Int2D pos, SparseGrid2D area){
+		Bag bag = area.getObjectsAtLocation(pos);
+		if(bag.numObjs == 0)
+			return 0;
+		if(((Human) bag.get(0)).rightDirection == this.rightDirection)
+			return -1;
+		else 
+			return 1;
+	}
+	
+	public Boolean getRieghtDirection(){
+		return rightDirection;
+	}
+	
+	public int getRule(){
+		return rule;
+	}
+	
 	public Obstacle getObst() {
 		return obst;
 	}
