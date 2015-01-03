@@ -60,7 +60,7 @@ public class Simulation extends SimState {
 			area.setObjectLocation(hum, position);
 			schedule.scheduleRepeating(hum);
 		
-		entropy.step(this);
+		
 	}
 		for (int i = 0; i < Config.numLeft; i++) {
 			Int2D position = null;
@@ -88,8 +88,10 @@ public class Simulation extends SimState {
 			area.setObjectLocation(hum, position);
 			schedule.scheduleRepeating(hum);
 		
+		
+	}
 		entropy.step(this);
-	}}
+		}
 
 	public static void main(String[] args) {
 		/*
