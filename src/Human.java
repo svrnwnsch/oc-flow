@@ -89,17 +89,20 @@ public class Human implements Steppable {
 		
 	}
 	
-	// return Values:
-	// -1: Human in other direction at pos
-	// 0: no Human at pos
-	// 1: Human in same direction at pos
 	public int getHumanAtPos(Int2D pos, SparseGrid2D area){
+		// return Values:
+		// -1: Human in other direction at pos
+		// 0: no Human at pos
+		// 1: Human in same direction at pos
 		Bag bag = area.getObjectsAtLocation(pos);
-		if(bag.numObjs == 0)
+		if(bag == null)
 			return 0;
-		if(((Human) bag.get(0)).rightDirection == this.rightDirection)
+		else if(bag.numObjs > 1){
+			System.out.println("Zwei Objekete an der selben Stelle!");
+			return 0;}
+		else if(((Human) bag.get(0)).rightDirection == this.rightDirection)
 			return -1;
-		else 
+		else
 			return 1;
 	}
 	
