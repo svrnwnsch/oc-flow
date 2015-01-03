@@ -105,11 +105,76 @@ public class Human implements Steppable {
 					return pos;
 			}
 		}
+		// empty next Field
 		else{
-			return pos;
+			checkPos =new Int2D(pos.x + 2 * nextFieldDiff, pos.y);
+			// human in same direction two fields ahead --> step forward
+			if(getHumanAtPos(checkPos, area) == 1)
+				return new Int2D(pos.x + nextFieldDiff, pos.y);
+			// empty field or human in different direction two fields ahead 
+			else{
+				checkPos = new Int2D(pos.x, nextFieldDiff + pos.y);
+				//right field is empty
+				if(getHumanAtPos(checkPos, area) == 0){
+					checkPos = new Int2D(pos.x + nextFieldDiff, nextFieldDiff + pos.y);
+					// human with same direction right ahead
+					if(getHumanAtPos(checkPos, area) == 1)
+						return new Int2D(pos.x, pos.y + nextFieldDiff);
+					// human different direction right ahead
+					else if(getHumanAtPos(checkPos, area) == -1){
+						return checkToGoLeft(pos, area, nextFieldDiff);
+					}
+					//empty field right ahead
+					else{
+						checkPos = new Int2D(pos.x + nextFieldDiff, 2 * nextFieldDiff + pos.y);
+						//human in same direction on field right, two ahead
+						if(getHumanAtPos(checkPos, area) == 1)
+							return new Int2D(pos.x, pos.y + nextFieldDiff);
+						//empty field or human in different direction on field right, two ahead
+						else
+							return checkToGoLeft(pos, area, nextFieldDiff);
+					}
+				}
+				//right field is non-empty
+				else{
+					checkPos = new Int2D(pos.x, pos.y - nextFieldDiff);
+					//left field is empty
+					if(getHumanAtPos(checkPos, area) == 0)
+						return checkToGoLeft(pos, area, nextFieldDiff);
+					//left field is non-empty
+					else 
+						return new Int2D(pos.x + nextFieldDiff, pos.y); 
+				}
+			}
 		}
 	}
 	
+	private Int2D checkToGoLeft(Int2D pos, SparseGrid2D area, int nextFieldDiff) {
+		Int2D checkPos;
+		checkPos = new Int2D(pos.x + nextFieldDiff, pos.y - nextFieldDiff);
+		// human with same direction on field left ahead
+		if(getHumanAtPos(checkPos, area) == 1){
+			return new Int2D(pos.x, pos.y - nextFieldDiff);
+		}
+		//human with different direction on field left ahead
+		else if(getHumanAtPos(checkPos, area) == -1){
+			return stepAhead();
+		}
+		//empty field left ahead
+		else{
+			checkPos = new Int2D(pos.x + nextFieldDiff, pos.y - 2 * nextFieldDiff);
+			// human with same direction on field left, two ahead
+			if(getHumanAtPos(checkPos, area) == 1){
+				return stepLeft();
+			}
+			//empty field or human with different direction on field left, two ahead
+			else{
+				stepAhead();
+			}
+		}
+		
+	}
+
 	public int getHumanAtPos(Int2D pos, SparseGrid2D area){
 		// return Values:
 		// -1: Human in other direction at pos
