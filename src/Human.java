@@ -80,13 +80,34 @@ public class Human implements Steppable {
 		else
 			nextFieldDiff = -1;
 		Int2D checkPos;
-		//check next Field
 		checkPos =new Int2D(pos.x + nextFieldDiff, pos.y);
-		// Human in same direction
+		// next field with human in same direction --> stay
 		if(getHumanAtPos(checkPos, area) == 1){
 			return pos;
 		}
-		
+		// next field with human in different direction
+		else if(getHumanAtPos(checkPos, area) == -1){
+			checkPos = new Int2D(pos.x, pos.y + nextFieldDiff);
+			//empty right field --> step right
+			if(getHumanAtPos(checkPos, area) == 0){
+				return checkPos;
+			}
+			//non-empty right field
+			else
+			{
+				checkPos = new Int2D(pos.x, pos.y - nextFieldDiff);
+				//empty left field --> step left
+				if(getHumanAtPos(checkPos, area) == 0){
+					return checkPos;
+				}
+				//non-empty left field: --> stay
+				else
+					return pos;
+			}
+		}
+		else{
+			return pos;
+		}
 	}
 	
 	// return Values:
