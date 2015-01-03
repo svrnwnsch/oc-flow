@@ -30,13 +30,14 @@ public class Human implements Steppable {
 		SparseGrid2D area = simulation.getArea();
 
 		if(rule == 1){
-			position = rule1(area);
+			setPosition(rule1(area));
 		}
 
 		// Neue Position wird auf der area gestzt
 		area.setObjectLocation(this, this.position);
 	}
-	
+
+
 	public Int2D rule1 (SparseGrid2D area){
 		int nextFieldDiff;
 		if(rightDirection)
@@ -105,7 +106,10 @@ public class Human implements Steppable {
 
 
 	public Int2D getPosition() {
-		//TODO soll Position zurückgeben
-		return null;
+		return this.position;
+	}
+	
+	public void setPosition(Int2D position) {
+		this.position = position;
 	}
 }
