@@ -92,7 +92,7 @@ public class Human implements Steppable {
 					}
 					//empty field right ahead
 					else{
-						checkPos = new Int2D(position.x + nextFieldDiff, 2 * nextFieldDiff + position.y);
+						checkPos = new Int2D(position.x + 2 * nextFieldDiff, nextFieldDiff + position.y);
 						//human in same direction on field right, two ahead
 						if(getHumanAtPos(checkPos, area) == 1)
 							return new Int2D(position.x, position.y + nextFieldDiff);
