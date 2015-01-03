@@ -98,7 +98,7 @@ public class Human implements Steppable {
 		if(bag == null)
 			return 0;
 		else if(bag.numObjs > 1){
-			System.out.println("Zei Objekete an der Selben stelle");
+			System.out.println("Zwei Objekete an der selben Stelle!");
 			return 0;}
 		else if(((Human) bag.get(0)).rightDirection == this.rightDirection)
 			return -1;
