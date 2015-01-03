@@ -4,8 +4,8 @@ import sim.field.grid.SparseGrid2D;
 import sim.util.Bag;
 
 /*
- * Implementiert die Schnittstelle Steppable und benötigt deshalb auch die Methode step(), die hier
- * dafür sorgt, dass immer wieder die Methode calculateEntropy(state) aufgerufen wird.
+ * Implementiert die Schnittstelle Steppable und benï¿½tigt deshalb auch die Methode step(), die hier
+ * dafï¿½r sorgt, dass immer wieder die Methode calculateEntropy(state) aufgerufen wird.
  */
 public class Entropy implements Steppable {
 
@@ -38,35 +38,38 @@ public class Entropy implements Steppable {
 
 		Bag bag = sim.getArea().getAllObjects();
 		if (bag != null && !bag.isEmpty()) {
-			for (int x = 0; x < grid.getWidth(); x += Config.width / 5) {
-				for (Object object : bag) {
-					if (object instanceof Obstacle
-							&& ((Obstacle) object).getPosition().x - x < Config.width / 5
-							&& ((Obstacle) object).getPosition().x - x >= 0) {
-						count++;
-					}
-				}
-				if (count != 0)
-					value += (double) count
-							/ (double) Config.numObstacles
-							* Math.log((double) count
-									/ (double) Config.numObstacles);
-				count = 0;
-			}
-
+			// nach rechts laufende Menschen
 			for (int y = 0; y < grid.getHeight(); y += Config.height / 5) {
 				for (Object object : bag) {
-					if (object instanceof Obstacle
-							&& ((Obstacle) object).getPosition().y - y < Config.height
-							&& ((Obstacle) object).getPosition().y - y >= 0) {
+					if (object instanceof Human
+							&& ((Human) object).getRightDirection()
+							&& ((Human) object).getPosition().y - y < Config.height
+							&& ((Human) object).getPosition().y - y >= 0) {
 						count++;
 					}
 				}
 				if (count != 0)
 					value += (double) count
-							/ (double) Config.numObstacles
+							/ (double) Config.numRight
 							* Math.log((double) count
-									/ (double) Config.numObstacles);
+									/ (double) Config.numRight);
+				count = 0;
+			}
+			// nach links laufende Menschen
+			for (int y = 0; y < grid.getHeight(); y += Config.height / 5) {
+				for (Object object : bag) {
+					if (object instanceof Human
+							&& !((Human) object).getRightDirection()
+							&& ((Human) object).getPosition().y - y < Config.height
+							&& ((Human) object).getPosition().y - y >= 0) {
+						count++;
+					}
+				}
+				if (count != 0)
+					value += (double) count
+							/ (double) Config.numLeft
+							* Math.log((double) count
+									/ (double) Config.numLeft);
 				count = 0;
 			}
 		}

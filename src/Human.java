@@ -13,6 +13,10 @@ public class Human implements Steppable {
 	private Obstacle obst = null;
 	private Int2D oldPos;
 	private Boolean rightDirection;
+	public Boolean getRightDirection() {
+		return rightDirection;
+	}
+
 	private int rule;
 	public Human(Int2D pos, Boolean rightDirection, int rule) {
 		this.oldPos = pos;
@@ -167,5 +171,10 @@ public class Human implements Steppable {
 			break;
 		}
 		return new Int2D(x, y);
+	}
+
+	public Int2D getPosition() {
+		//TODO soll Position zurückgeben
+		return null;
 	}
 }
