@@ -95,7 +95,7 @@ public class Human implements Steppable {
 		// 0: no Human at pos
 		// 1: Human in same direction at pos
 		Bag bag = area.getObjectsAtLocation(pos);
-		if(bag.numObjs == 0)
+		if(bag == null)
 			return 0;
 		else if(bag.numObjs > 1){
 			System.out.println("Zei Objekete an der Selben stelle");
