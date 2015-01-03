@@ -14,7 +14,7 @@ import sim.portrayal.simple.OvalPortrayal2D;
 
 /*
  * Das zugrundeliegende Modell und die GUI sind strikt voneinander getrennt. So kann das Modell bzw. die GUI
- * leicht  verändert und verschiedene GUIs auf das Modell angewandt werden.
+ * leicht  verï¿½ndert und verschiedene GUIs auf das Modell angewandt werden.
  */
 
 // Die Klasse SimulationWithUi muss eine Subklasse von GUIState sein.
@@ -22,8 +22,8 @@ public class SimulationWithUI extends GUIState {
 
 	/*
 	 * Display2D display ist in der Lage definierte "Felder" der Simulation
-	 * (auch meherere übereinander) anzuzeigen. Das display wird in einem neuen
-	 * Fenster, dem JFrame displayFrame, angezeigt. Das areaPortrayal ist für
+	 * (auch meherere ï¿½bereinander) anzuzeigen. Das display wird in einem neuen
+	 * Fenster, dem JFrame displayFrame, angezeigt. Das areaPortrayal ist fï¿½r
 	 * das (neu-)zeichnen des Displays und die Beobachtung der angezeigten
 	 * Individuen verantwortlich (es gibt verschieden Typen von Portrayals; z.B.
 	 * OvalPortrayal2D, das Kreise zeichnet).
@@ -34,9 +34,9 @@ public class SimulationWithUI extends GUIState {
 
 	/*
 	 * 2 Konstruktoren: Default-Konstruktor, der aus der aktuellen Systemzeit
-	 * eine zulässige Simulation erzeugt, und diese an den super-Konstruktor
-	 * übergibt (beim initialen Start der Simulation). Konstruktor mit SimState
-	 * als Parameter, ruft den super-Konstruktor mit dem übergebenen SimState
+	 * eine zulï¿½ssige Simulation erzeugt, und diese an den super-Konstruktor
+	 * ï¿½bergibt (beim initialen Start der Simulation). Konstruktor mit SimState
+	 * als Parameter, ruft den super-Konstruktor mit dem ï¿½bergebenen SimState
 	 * auf (z.B. wenn Simulation geladen (load) wird).
 	 */
 	public SimulationWithUI() {
@@ -47,21 +47,21 @@ public class SimulationWithUI extends GUIState {
 		super(state);
 	}
 
-	// getName() gibt den Namen der aktuellen Simulation zurück.
+	// getName() gibt den Namen der aktuellen Simulation zurï¿½ck.
 	public static String getName() {
 		return "Ant Clustering";
 	}
 
 	/*
 	 * init() wird beim initialen Erstellen der GUI aufgerufen. Als erstes, muss
-	 * immer die super-Methode aufgerufen werden. Erzeugt ein display der Größe
-	 * 600 x 600 Pixel. setClipping(false) sorgt dafür, dass das
-	 * zugrundeliegende "Feld" mit seiner Größe 50 x 50 (in Klasse Config
+	 * immer die super-Methode aufgerufen werden. Erzeugt ein display der Grï¿½ï¿½e
+	 * 600 x 600 Pixel. setClipping(false) sorgt dafï¿½r, dass das
+	 * zugrundeliegende "Feld" mit seiner Grï¿½ï¿½e 50 x 50 (in Klasse Config
 	 * definiert) das Display nicht auf 50x50 begrenzt. createFrame() erzuegt
 	 * ein Fenster, in dem das Display angezeigt wird. setTitle() setzt den
-	 * Namen. registerFrame() registriert das Display bei der übergebenen
-	 * Konsole. setVisible() sorgt dafür, dass der Display auch sichtbar
-	 * angezeigt wird. attach() hängt die areaPortrayal dem Display an.
+	 * Namen. registerFrame() registriert das Display bei der ï¿½bergebenen
+	 * Konsole. setVisible() sorgt dafï¿½r, dass der Display auch sichtbar
+	 * angezeigt wird. attach() hï¿½ngt die areaPortrayal dem Display an.
 	 */
 	public void init(Controller c) {
 		super.init(c);
@@ -75,8 +75,8 @@ public class SimulationWithUI extends GUIState {
 	}
 
 	/*
-	 * start() wird beim Drücken des Play-Buttons aufgerufen, ruft die
-	 * super-Methode auf und anschließend die setupPortrayals() Methode.
+	 * start() wird beim Drï¿½cken des Play-Buttons aufgerufen, ruft die
+	 * super-Methode auf und anschlieï¿½end die setupPortrayals() Methode.
 	 */
 	public void start() {
 		super.start();
@@ -85,7 +85,7 @@ public class SimulationWithUI extends GUIState {
 
 	/*
 	 * load() wird aufgerufen, wenn eine Simulation von einem Checkpoint aus
-	 * geladen wird. Sie hat fast die gleiche funktionalität wie start().
+	 * geladen wird. Sie hat fast die gleiche funktionalitï¿½t wie start().
 	 */
 	public void load(SimState state) {
 		super.load(state);
@@ -93,8 +93,8 @@ public class SimulationWithUI extends GUIState {
 	}
 
 	/*
-	 * setupPortrayals sorgt dafür, dass beim Starten der Simulation, diese
-	 * tatsächlich visualisiert wird. hat 2 Aufgaben: 1. Das Feld bzw. die
+	 * setupPortrayals sorgt dafï¿½r, dass beim Starten der Simulation, diese
+	 * tatsï¿½chlich visualisiert wird. hat 2 Aufgaben: 1. Das Feld bzw. die
 	 * Felder des Modells sollen dargestellt werden. 2. Der Display soll
 	 * geresettet und bereinigt werden.
 	 */
@@ -109,8 +109,8 @@ public class SimulationWithUI extends GUIState {
 		/*
 		 * Vorgehen: 1. dem Abbild (areaPortrayal) sagen, welches Feld der
 		 * Simulation dargestellt werden soll (setField(simulation.getArea()) 2.
-		 * dem Abbild sagen, dass alle Objekte (zunächst für die Objekte, dann
-		 * für die Ameisen) als Kreise (OvalPortrayal2D()) dargestellt werden
+		 * dem Abbild sagen, dass alle Objekte (zunï¿½chst fï¿½r die Objekte, dann
+		 * fï¿½r die Ameisen) als Kreise (OvalPortrayal2D()) dargestellt werden
 		 * sollen (hier: verschiedenartige Farben, je nachdem, ob das Objekt
 		 * getragen wird). 3. das Display reseten, damit es auch nach jedem Step
 		 * gerepaintet wird. 4. die Hintergrundfarbe des Display bestimmen. 5.
@@ -131,7 +131,7 @@ public class SimulationWithUI extends GUIState {
 					}
 				});
 
-		areaPortrayal.setPortrayalForClass(Ant.class, new OvalPortrayal2D() {
+		areaPortrayal.setPortrayalForClass(Human.class, new OvalPortrayal2D() {
 			public void draw(final Object object, final Graphics2D graphics,
 					final DrawInfo2D info) {
 				paint = new Color(139, 90, 19);

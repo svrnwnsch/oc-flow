@@ -8,12 +8,12 @@ import sim.util.Int2D;
  * Die Klasse Ant implementiert die Schnittstelle Steppable und besitzt eine step() Methode,
  * sodass jede Ant dem Schedule zugewiesen werden kann um steps zu machen.
  */
-public class Ant implements Steppable {
+public class Human implements Steppable {
 
 	private Obstacle obst = null;
 	private Int2D oldPos;
 
-	public Ant(Int2D pos) {
+	public Human(Int2D pos) {
 		this.oldPos = pos;
 	}
 
@@ -23,7 +23,7 @@ public class Ant implements Steppable {
 		Simulation simulation = (Simulation) state;
 		SparseGrid2D area = simulation.getArea();
 		
-		// Die Ameise weiß durch area.getObjectLocation(this), wo sie sich befindet.
+		// Die Ameise weiï¿½ durch area.getObjectLocation(this), wo sie sich befindet.
 		Int2D pos = area.getObjectLocation(this);
 		boolean shallDrop = false;
 		
