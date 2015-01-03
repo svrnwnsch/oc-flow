@@ -11,6 +11,7 @@ import sim.engine.SimState;
 import sim.portrayal.DrawInfo2D;
 import sim.portrayal.grid.SparseGridPortrayal2D;
 import sim.portrayal.simple.OvalPortrayal2D;
+import sim.portrayal.simple.RectanglePortrayal2D;
 
 /*
  * Das zugrundeliegende Modell und die GUI sind strikt voneinander getrennt. So kann das Modell bzw. die GUI
@@ -22,9 +23,9 @@ public class SimulationWithUI extends GUIState {
 
 	/*
 	 * Display2D display ist in der Lage definierte "Felder" der Simulation
-	 * (auch meherere �bereinander) anzuzeigen. Das display wird in einem neuen
-	 * Fenster, dem JFrame displayFrame, angezeigt. Das areaPortrayal ist f�r
-	 * das (neu-)zeichnen des Displays und die Beobachtung der angezeigten
+	 * (auch meherere �bereinander) anzuzeigen. Das display wird in einem
+	 * neuen Fenster, dem JFrame displayFrame, angezeigt. Das areaPortrayal ist
+	 * f�r das (neu-)zeichnen des Displays und die Beobachtung der angezeigten
 	 * Individuen verantwortlich (es gibt verschieden Typen von Portrayals; z.B.
 	 * OvalPortrayal2D, das Kreise zeichnet).
 	 */
@@ -35,9 +36,9 @@ public class SimulationWithUI extends GUIState {
 	/*
 	 * 2 Konstruktoren: Default-Konstruktor, der aus der aktuellen Systemzeit
 	 * eine zul�ssige Simulation erzeugt, und diese an den super-Konstruktor
-	 * �bergibt (beim initialen Start der Simulation). Konstruktor mit SimState
-	 * als Parameter, ruft den super-Konstruktor mit dem �bergebenen SimState
-	 * auf (z.B. wenn Simulation geladen (load) wird).
+	 * �bergibt (beim initialen Start der Simulation). Konstruktor mit
+	 * SimState als Parameter, ruft den super-Konstruktor mit dem �bergebenen
+	 * SimState auf (z.B. wenn Simulation geladen (load) wird).
 	 */
 	public SimulationWithUI() {
 		super(new Simulation(System.currentTimeMillis()));
@@ -54,8 +55,8 @@ public class SimulationWithUI extends GUIState {
 
 	/*
 	 * init() wird beim initialen Erstellen der GUI aufgerufen. Als erstes, muss
-	 * immer die super-Methode aufgerufen werden. Erzeugt ein display der Gr��e
-	 * 600 x 600 Pixel. setClipping(false) sorgt daf�r, dass das
+	 * immer die super-Methode aufgerufen werden. Erzeugt ein display der
+	 * Gr��e 600 x 600 Pixel. setClipping(false) sorgt daf�r, dass das
 	 * zugrundeliegende "Feld" mit seiner Gr��e 50 x 50 (in Klasse Config
 	 * definiert) das Display nicht auf 50x50 begrenzt. createFrame() erzuegt
 	 * ein Fenster, in dem das Display angezeigt wird. setTitle() setzt den
@@ -109,37 +110,29 @@ public class SimulationWithUI extends GUIState {
 		/*
 		 * Vorgehen: 1. dem Abbild (areaPortrayal) sagen, welches Feld der
 		 * Simulation dargestellt werden soll (setField(simulation.getArea()) 2.
-		 * dem Abbild sagen, dass alle Objekte (zun�chst f�r die Objekte, dann
-		 * f�r die Ameisen) als Kreise (OvalPortrayal2D()) dargestellt werden
-		 * sollen (hier: verschiedenartige Farben, je nachdem, ob das Objekt
-		 * getragen wird). 3. das Display reseten, damit es auch nach jedem Step
-		 * gerepaintet wird. 4. die Hintergrundfarbe des Display bestimmen. 5.
-		 * das Display einmal repainten, um den Initialzustand vor dem Start der
-		 * Simulation anzuzeigen.
+		 * dem Abbild sagen, dass alle Objekte (zun�chst f�r die Objekte,
+		 * dann f�r die Ameisen) als Kreise (OvalPortrayal2D()) dargestellt
+		 * werden sollen (hier: verschiedenartige Farben, je nachdem, ob das
+		 * Objekt getragen wird). 3. das Display reseten, damit es auch nach
+		 * jedem Step gerepaintet wird. 4. die Hintergrundfarbe des Display
+		 * bestimmen. 5. das Display einmal repainten, um den Initialzustand vor
+		 * dem Start der Simulation anzuzeigen.
 		 */
 		areaPortrayal.setField(simulation.getArea());
-		areaPortrayal.setPortrayalForClass(Obstacle.class,
-				new OvalPortrayal2D() {
-					public void draw(final Object object,
-							final Graphics2D graphics, final DrawInfo2D info) {
-						if (((Obstacle) object).isCarried()) {
-							paint = new Color(0, 0, 255);
-						} else {
-							paint = new Color(150, 80, 100);
-						}
-						super.draw(object, graphics, info);
-					}
-				});
 
-		areaPortrayal.setPortrayalForClass(Human.class, new OvalPortrayal2D() {
+		areaPortrayal.setPortrayalForClass(Human.class, new RectanglePortrayal2D() {
 			public void draw(final Object object, final Graphics2D graphics,
 					final DrawInfo2D info) {
-				paint = new Color(139, 90, 19);
+				if (((Human) object).getRieghtDirection()) {
+					paint = new Color(255, 255, 51);
+				} else {
+					paint = new Color(255, 153, 51);
+				}
 				super.draw(object, graphics, info);
 			}
 		});
 		display.reset();
-		display.setBackdrop(Color.PINK);
+		display.setBackdrop(Color.WHITE);
 
 		display.repaint();
 	}
