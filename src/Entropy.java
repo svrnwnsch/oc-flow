@@ -12,6 +12,7 @@ public class Entropy implements Steppable {
 	private double value = 0.0;
 
 	private static Entropy unique;
+	private static double startvalue;
 
 	private Entropy() {
 	}
@@ -24,10 +25,16 @@ public class Entropy implements Steppable {
 
 	@Override
 	public void step(SimState state) {
-		System.out.println("step: "+state.schedule.getSteps());
-		if(state.schedule.getSteps()%10==0)
+		if(state.schedule.getSteps()==0){
 			calculateEntropy(state);
-			System.out.println("Entropie: "+this.getValue());
+			startvalue = this.getValue();
+		}
+		System.out.println("step: "+state.schedule.getSteps());
+		if(state.schedule.getSteps()%10==0){
+			calculateEntropy(state);
+			System.out.println("Entropie: "+this.getValue() + " Emergenz: "+
+					(startvalue - this.getValue()));
+		}
 	}
 
 	private void calculateEntropy(SimState state) {
