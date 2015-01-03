@@ -103,13 +103,10 @@ public class Human implements Steppable {
 				}
 				//right field is non-empty
 				else{
-					checkPos = new Int2D(position.x, position.y - nextFieldDiff);
-					//left field is empty
-					if(getHumanAtPos(checkPos, area) == 0)
-						return checkToGoLeft(area, nextFieldDiff);
+					return checkToGoLeft(area, nextFieldDiff);
+					
+						
 					//left field is non-empty
-					else 
-						return new Int2D(position.x + nextFieldDiff, position.y); 
 				}
 			}
 		}
@@ -117,27 +114,35 @@ public class Human implements Steppable {
 	
 	private Int2D checkToGoLeft(SparseGrid2D area, int nextFieldDiff) {
 		Int2D checkPos;
-		checkPos = new Int2D(position.x + nextFieldDiff, position.y - nextFieldDiff);
-		// human with same direction on field left ahead
-		if(getHumanAtPos(checkPos, area) == 1){
-			return new Int2D(position.x, position.y - nextFieldDiff);
-		}
-		//human with different direction on field left ahead
-		else if(getHumanAtPos(checkPos, area) == -1){
-			return stepAhead(nextFieldDiff);
-		}
-		//empty field left ahead
-		else{
-			checkPos = new Int2D(position.x + nextFieldDiff, position.y - 2 * nextFieldDiff);
-			// human with same direction on field left, two ahead
+		checkPos = new Int2D(position.x, position.y - nextFieldDiff);
+		//left field is empty
+		if(getHumanAtPos(checkPos, area) == 0){
+			
+			checkPos = new Int2D(position.x + nextFieldDiff, position.y - nextFieldDiff);
+			// human with same direction on field left ahead
 			if(getHumanAtPos(checkPos, area) == 1){
-				return stepLeft(nextFieldDiff);
+				return new Int2D(position.x, position.y - nextFieldDiff);
 			}
-			//empty field or human with different direction on field left, two ahead
-			else{
+			//human with different direction on field left ahead
+			else if(getHumanAtPos(checkPos, area) == -1){
 				return stepAhead(nextFieldDiff);
 			}
+			//empty field left ahead
+			else{
+				checkPos = new Int2D(position.x + nextFieldDiff, position.y - 2 * nextFieldDiff);
+				// human with same direction on field left, two ahead
+				if(getHumanAtPos(checkPos, area) == 1){
+					return stepLeft(nextFieldDiff);
+				}
+				//empty field or human with different direction on field left, two ahead
+				else{
+					return stepAhead(nextFieldDiff);
+				}
+			}
 		}
+		else 
+			return new Int2D(position.x + nextFieldDiff, position.y); 
+
 		
 	}
 	
