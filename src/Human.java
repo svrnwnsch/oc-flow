@@ -170,9 +170,9 @@ public class Human implements Steppable {
 			System.out.println("Zwei Objekete an der selben Stelle!");
 			return 0;}
 		else if(((Human) bag.get(0)).rightDirection == this.rightDirection)
-			return -1;
-		else
 			return 1;
+		else
+			return -1;
 	}
 	
 	public Boolean getRieghtDirection(){
