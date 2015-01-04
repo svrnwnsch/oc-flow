@@ -50,7 +50,7 @@ public class SimulationWithUI extends GUIState {
 
 	// getName() gibt den Namen der aktuellen Simulation zur�ck.
 	public static String getName() {
-		return "Ant Clustering";
+		return "Traffic monitor";
 	}
 
 	/*
