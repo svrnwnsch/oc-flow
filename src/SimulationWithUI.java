@@ -141,6 +141,8 @@ public class SimulationWithUI extends GUIState {
 				else if (((Human) object).getDirection()<0 && ((Human) object).getRule()==2){
 					paint = new Color(51, 255, 255);
 				}
+				else
+					paint = new Color(0, 0, 0);
 
 				super.draw(object, graphics, info);
 			}
