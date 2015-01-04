@@ -29,12 +29,9 @@ public class Entropy implements Steppable {
 			calculateEntropy(state);
 			startvalue = this.getValue();
 		}
-		System.out.println("step: "+state.schedule.getSteps());
-		if(state.schedule.getSteps()%10==0){
-			calculateEntropy(state);
-			System.out.println("Entropie: "+this.getValue() + " Emergenz: "+
-					(startvalue - this.getValue()));
-		}
+		calculateEntropy(state);
+		System.out.println("step: "+state.schedule.getSteps()+"\t"+"Entropie: "+this.getValue() + " Emergenz: "+
+				(startvalue - this.getValue()));
 	}
 
 	private void calculateEntropy(SimState state) {
