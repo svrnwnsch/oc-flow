@@ -11,15 +11,15 @@ import sim.util.Int2D;
 public class Human implements Steppable {
 
 	private Int2D position;
-	private Boolean rightDirection;
-	public Boolean getRightDirection() {
-		return rightDirection;
+	private int direction;
+	public int getDirection() {
+		return direction;
 	}
 
 	private int rule;
-	public Human(Int2D pos, Boolean rightDirection, int rule) {
+	public Human(Int2D pos, int direction, int rule) {
 		this.position = pos;
-		this.rightDirection = rightDirection;
+		this.direction = direction;
 		this.rule = rule;
 	}
 
@@ -41,7 +41,7 @@ public class Human implements Steppable {
 	public Int2D rule1 (SparseGrid2D area){
 		
 		int nextFieldDiff;
-		if(rightDirection)
+		if(direction > 0)
 			nextFieldDiff = 1;
 		else
 			nextFieldDiff = -1;
@@ -180,15 +180,12 @@ public class Human implements Steppable {
 		else if(bag.numObjs > 1){
 			System.out.println("Zwei Objekete an der selben Stelle!");
 			return 0;}
-		else if(((Human) bag.get(0)).rightDirection == this.rightDirection)
+		else if(((Human) bag.get(0)).direction == this.direction)
 			return 1;
 		else
 			return -1;
 	}
 	
-	public Boolean getRieghtDirection(){
-		return rightDirection;
-	}
 	
 	public int getRule(){
 		return rule;
