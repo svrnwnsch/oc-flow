@@ -1,3 +1,5 @@
+import java.util.Random;
+
 import sim.engine.SimState;
 import sim.engine.Steppable;
 import sim.field.grid.SparseGrid2D;
@@ -9,7 +11,7 @@ import sim.util.Int2D;
  * sodass jede Ant dem Schedule zugewiesen werden kann um steps zu machen.
  */
 public class Human implements Steppable {
-
+	private Random rand;
 	private Int2D position;
 	private int direction;
 	public int getDirection() {
@@ -18,6 +20,7 @@ public class Human implements Steppable {
 
 	private int rule;
 	public Human(Int2D pos, int direction, int rule) {
+		rand = new Random();
 		this.position = pos;
 		this.direction = direction;
 		this.rule = rule;
@@ -28,7 +31,11 @@ public class Human implements Steppable {
 		// SimState state muss in Simulation gecastet werden (was es ja auch ist, da Simulation eine Subklasse von SimState ist).
 		Simulation simulation = (Simulation) state;
 		SparseGrid2D area = simulation.getArea();
-
+		
+		if(rule == 0){
+			setPosition(rule0(area));
+		}
+		
 		if(rule == 1){
 			setPosition(rule1(area));
 		}
@@ -36,18 +43,49 @@ public class Human implements Steppable {
 		// Neue Position wird auf der area gestzt
 		area.setObjectLocation(this, this.position);
 	}
+	
+	
+	
 
+	public Int2D rule0(SparseGrid2D area) {
+		if(direction != 0){
+			System.out.println("rule0 von einem nicht-Störer");
+			return position;
+		}
+		Int2D newPos;
+		double stepDirection = rand.nextDouble();
+		if(stepDirection < 0.25){
+			newPos = new Int2D(position.x + 1, position.y);
+		}
+		else if(stepDirection < 0.5){
+			newPos = new Int2D(position.x - 1, position.y);
+		}
+		else if(stepDirection < 0.75){
+			newPos = new Int2D(position.x, position.y + 1);
+		}
+		else{
+			newPos = new Int2D(position.x, position.y - 1);
+		}
+		if(getHumanAtPos(newPos, area) == 0)
+			return newPos;
+		else
+			return position;
+	}
 
 	public Int2D rule1 (SparseGrid2D area){
 		
 		int nextFieldDiff;
 		if(direction > 0)
 			nextFieldDiff = 1;
-		else
+		else if(direction < 0)
 			nextFieldDiff = -1;
+		else nextFieldDiff = 0;
 		Int2D checkPos;
 		
-	
+		if(nextFieldDiff == 0){
+			System.out.println("rule1 von einem Störer aufgerufen");
+			return position;
+		}
 		
 		
 		checkPos =new Int2D(position.x + nextFieldDiff, position.y);
