@@ -46,6 +46,10 @@ public class Human implements Steppable {
 		else
 			nextFieldDiff = -1;
 		Int2D checkPos;
+		
+	
+		
+		
 		checkPos =new Int2D(position.x + nextFieldDiff, position.y);
 		// next field with human in same direction --> stay
 		if(getHumanAtPos(checkPos, area) == 1){
@@ -111,6 +115,8 @@ public class Human implements Steppable {
 			}
 		}
 	}
+	
+	
 	
 	private Int2D checkToGoLeft(SparseGrid2D area, int nextFieldDiff) {
 		Int2D checkPos;
@@ -198,6 +204,16 @@ public class Human implements Steppable {
 	}
 	
 	public void setPosition(Int2D position) {
-		this.position = position;
+		
+		
+		if(this.position.getX()>=Config.width){
+			
+			this.position=new Int2D(position.getX()%Config.width, position.y);
+		
+		}
+		else if(this.position.getX()<=0){
+			this.position=new Int2D(position.getX()+Config.width, position.y);
+		}
+		else {this.position=position;}
 	}
 }
