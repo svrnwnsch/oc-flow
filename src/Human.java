@@ -226,7 +226,7 @@ public class Human implements Steppable {
 		// 0: no Human at pos
 		// 1: Human in same direction at pos
 		Bag bag = area.getObjectsAtLocation(calculatePosition(pos));
-		if (pos.y<0 || pos.y>Config.height)
+		if (pos.y<0 || pos.y>=Config.height)
 			return -1;
 		else if(bag == null)
 			return 0;
