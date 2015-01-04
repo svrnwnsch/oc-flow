@@ -122,24 +122,27 @@ public class SimulationWithUI extends GUIState {
 		 * dem Start der Simulation anzuzeigen.
 		 */
 		areaPortrayal.setField(simulation.getArea());
+		
 
 		areaPortrayal.setPortrayalForClass(Human.class, new RectanglePortrayal2D() {
 			public void draw(final Object object, final Graphics2D graphics,
 					final DrawInfo2D info) {
+				int alpha = 255-(150/(Config.pausemax-Config.pausemin)) *
+						(((Human) object).getPause()-Config.pausemin);
 				if (((Human) object).getDirection()>0 && ((Human) object).getRule()==1) {
-					paint = new Color(255, 255, 51+20*((Human) object).getPause());
+					paint = new Color(153, 0, 155,alpha);
 				} 
 				else if (((Human) object).getDirection()<0 && ((Human) object).getRule()==1){
-					paint = new Color(255, 153, 51+20*((Human) object).getPause());
+					paint = new Color(51, 155, 0,alpha);
 				}
 				else if (((Human) object).getRule()==0){
-					paint = new Color(255, 0, 0);
+					paint = new Color(0, 255, 0);
 				}
 				else if (((Human) object).getDirection()>0 && ((Human) object).getRule()==2) {
-					paint = new Color(51+10*((Human) object).getPause(), 53, 255-10*((Human) object).getPause());
+					paint = new Color(51, 53, 255,alpha);
 				} 
 				else if (((Human) object).getDirection()<0 && ((Human) object).getRule()==2){
-					paint = new Color(51+10*((Human) object).getPause(), 255, 255-10*((Human) object).getPause());
+					paint = new Color(51, 255, 255,alpha);
 				}
 				else
 					paint = new Color(0, 0, 0);
