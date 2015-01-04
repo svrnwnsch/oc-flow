@@ -21,6 +21,10 @@ public class Human implements Steppable {
 		return direction;
 	}
 
+	public int getPause(){
+		return pause;
+	}
+	
 	private int rule;
 	public Human(Int2D pos, int direction, int rule, int pause) {
 		rand = new Random();
