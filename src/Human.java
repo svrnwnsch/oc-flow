@@ -13,6 +13,7 @@ import sim.util.Int2D;
 public class Human implements Steppable {
 	private Random rand;
 	private int waitsteps = 0;
+	private int stayedSteps = 0;
 	private Int2D position;
 	private int direction;
 	private int pause;
@@ -48,6 +49,9 @@ public class Human implements Steppable {
 			if(rule == 1){
 				setPosition(rule1(area));
 			}
+			if(rule == 2){
+				setPosition(rule2(area));
+			}
 		}
 		else{
 			waitsteps++;
@@ -60,11 +64,28 @@ public class Human implements Steppable {
 	
 	
 
-	public Int2D rule0(SparseGrid2D area) {
-		if(direction != 0){
-			System.out.println("rule0 von einem nicht-Störer");
-			return position;
+	public Int2D rule2(SparseGrid2D area) {
+		Int2D newPos = rule1(area);
+		if(newPos == position){
+			if(stayedSteps >= Config.staySteps){
+				stayedSteps = 0;
+				return rule0(area);
+			}
+			else{
+				stayedSteps++;
+				return position;
+			}
 		}
+		else
+			stayedSteps = 0;
+			return newPos;
+	}
+
+	public Int2D rule0(SparseGrid2D area) {
+		//if(direction != 0){
+		//	System.out.println("rule0 von einem nicht-Störer");
+		//	return position;
+		//}
 		Int2D newPos;
 		double stepDirection = rand.nextDouble();
 		if(stepDirection < 0.25){
