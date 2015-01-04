@@ -280,7 +280,7 @@ public class Human implements Steppable {
 	
 	private Int2D calculatePosition(Int2D position){
 		
-		if(position.getX()>Config.width){
+		if(position.getX()>=Config.width){
 			
 			return new Int2D(position.getX()%Config.width, position.y);
 		
