@@ -66,7 +66,7 @@ public class SimulationWithUI extends GUIState {
 	 */
 	public void init(Controller c) {
 		super.init(c);
-		display = new Display2D(600, 300, this);
+		display = new Display2D(10*Config.width, 10*Config.height, this);
 		display.setClipping(false);
 		displayFrame = display.createFrame();
 		displayFrame.setTitle("Area Display");
