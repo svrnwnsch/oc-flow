@@ -105,7 +105,7 @@ public class Simulation extends SimState {
 			} while (position == null);
 			// Das Objekt wird an der generierten Position erzeugt.
 
-			hum = new Human(position, 0, 1);
+			hum = new Human(position, 0, 0);
 
 			area.setObjectLocation(hum, position);
 			schedule.scheduleRepeating(hum);

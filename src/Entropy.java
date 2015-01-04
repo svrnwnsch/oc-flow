@@ -49,7 +49,7 @@ public class Entropy implements Steppable {
 			for (int y = 0; y < grid.getHeight(); y += 1) {
 				for (Object object : bag) {
 					if (object instanceof Human
-							&& ((Human) object).getRightDirection()
+							&& ((Human) object).getDirection()>0
 							&& ((Human) object).getPosition().y - y < Config.height
 							&& ((Human) object).getPosition().y - y >= 0) {
 						count++;
@@ -66,7 +66,7 @@ public class Entropy implements Steppable {
 			for (int y = 0; y < grid.getHeight(); y += 1) {
 				for (Object object : bag) {
 					if (object instanceof Human
-							&& !((Human) object).getRightDirection()
+							&& ((Human) object).getDirection()<0
 							&& ((Human) object).getPosition().y - y < Config.height
 							&& ((Human) object).getPosition().y - y >= 0) {
 						count++;
