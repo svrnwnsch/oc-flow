@@ -66,7 +66,7 @@ public class Human implements Steppable {
 
 	public Int2D rule2(SparseGrid2D area) {
 		Int2D newPos = rule1(area);
-		if(newPos == position){
+		if(newPos == position && Config.staySteps != -1){
 			if(stayedSteps >= Config.staySteps){
 				stayedSteps = 0;
 				return rule0(area);
