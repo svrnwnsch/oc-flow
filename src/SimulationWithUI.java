@@ -127,19 +127,19 @@ public class SimulationWithUI extends GUIState {
 			public void draw(final Object object, final Graphics2D graphics,
 					final DrawInfo2D info) {
 				if (((Human) object).getDirection()>0 && ((Human) object).getRule()==1) {
-					paint = new Color(255, 255, 51);
+					paint = new Color(255, 255, 51+20*((Human) object).getPause());
 				} 
 				else if (((Human) object).getDirection()<0 && ((Human) object).getRule()==1){
-					paint = new Color(255, 153, 51);
+					paint = new Color(255, 153, 51+20*((Human) object).getPause());
 				}
 				else if (((Human) object).getRule()==0){
 					paint = new Color(255, 0, 0);
 				}
 				else if (((Human) object).getDirection()>0 && ((Human) object).getRule()==2) {
-					paint = new Color(51, 153, 255);
+					paint = new Color(51+10*((Human) object).getPause(), 53, 255-10*((Human) object).getPause());
 				} 
 				else if (((Human) object).getDirection()<0 && ((Human) object).getRule()==2){
-					paint = new Color(51, 255, 255);
+					paint = new Color(51+10*((Human) object).getPause(), 255, 255-10*((Human) object).getPause());
 				}
 				else
 					paint = new Color(0, 0, 0);
