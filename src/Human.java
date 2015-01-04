@@ -174,8 +174,10 @@ public class Human implements Steppable {
 		// -1: Human in other direction at pos
 		// 0: no Human at pos
 		// 1: Human in same direction at pos
-		Bag bag = area.getObjectsAtLocation(pos);
-		if(bag == null)
+		Bag bag = area.getObjectsAtLocation(calculatePosition(pos));
+		if (pos.y<0 || pos.y>Config.height)
+			return -1;
+		else if(bag == null)
 			return 0;
 		else if(bag.numObjs > 1){
 			System.out.println("Zwei Objekete an der selben Stelle!");
@@ -200,17 +202,21 @@ public class Human implements Steppable {
 		return this.position;
 	}
 	
-	public void setPosition(Int2D position) {
+	private Int2D calculatePosition(Int2D position){
 		
-		
-		if(this.position.getX()>=Config.width){
+		if(position.getX()>Config.width){
 			
-			this.position=new Int2D(position.getX()%Config.width, position.y);
+			return new Int2D(position.getX()%Config.width, position.y);
 		
 		}
-		else if(this.position.getX()<=0){
-			this.position=new Int2D(position.getX()+Config.width, position.y);
+		else if(position.getX()<0){
+			return new Int2D(position.getX()+Config.width, position.y);
 		}
-		else {this.position=position;}
+		else {return position;}
 	}
+	
+	public void setPosition(Int2D position) {
+		this.position = calculatePosition(position);
+	}
+
 }
