@@ -126,10 +126,14 @@ public class SimulationWithUI extends GUIState {
 		areaPortrayal.setPortrayalForClass(Human.class, new RectanglePortrayal2D() {
 			public void draw(final Object object, final Graphics2D graphics,
 					final DrawInfo2D info) {
-				if (((Human) object).getRieghtDirection()) {
+				if (((Human) object).getDirection()>0 && ((Human) object).getRule()==1) {
 					paint = new Color(255, 255, 51);
-				} else {
+				} 
+				else if (((Human) object).getDirection()<0 && ((Human) object).getRule()==1){
 					paint = new Color(255, 153, 51);
+				}
+				else if (((Human) object).getRule()==0){
+					paint = new Color(255, 0, 0);
 				}
 				super.draw(object, graphics, info);
 			}
