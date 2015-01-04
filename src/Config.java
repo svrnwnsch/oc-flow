@@ -1,7 +1,7 @@
 public final class Config {
 
-	public final static int numRight = 150;
-	public final static int numLeft = 150;
+	public final static int numRight = 200;
+	public final static int numLeft = 200;
 	public final static int randomWalk = 10;
 	public final static int pausemax = 10;
 	public final static int staySteps = 5;
