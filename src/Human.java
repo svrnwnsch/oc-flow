@@ -12,18 +12,24 @@ import sim.util.Int2D;
  */
 public class Human implements Steppable {
 	private Random rand;
+	private int waitsteps = 0;
 	private Int2D position;
 	private int direction;
+	private int pause;
 	public int getDirection() {
 		return direction;
 	}
 
 	private int rule;
-	public Human(Int2D pos, int direction, int rule) {
+	public Human(Int2D pos, int direction, int rule, int pause) {
 		rand = new Random();
 		this.position = pos;
 		this.direction = direction;
 		this.rule = rule;
+		if(pause < 0){
+			System.out.println("Pause kleiner Null");
+		}
+		this.pause = pause;
 	}
 
 	@Override
@@ -32,12 +38,19 @@ public class Human implements Steppable {
 		Simulation simulation = (Simulation) state;
 		SparseGrid2D area = simulation.getArea();
 		
-		if(rule == 0){
-			setPosition(rule0(area));
-		}
 		
-		if(rule == 1){
-			setPosition(rule1(area));
+		int revertSpeed;
+		if(waitsteps >= pause){
+			waitsteps = 0;
+			if(rule == 0){
+				setPosition(rule0(area));
+			}
+			if(rule == 1){
+				setPosition(rule1(area));
+			}
+		}
+		else{
+			waitsteps++;
 		}
 
 		// Neue Position wird auf der area gestzt
