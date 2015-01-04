@@ -54,9 +54,9 @@ public class Entropy implements Steppable {
 				}
 				if (count != 0)
 					value += (double) count
-							/ (double) Config.numRight
+							/ (double) Config.numTotalRight
 							* Math.log((double) count
-									/ (double) Config.numRight);
+									/ (double) Config.numTotalRight);
 				count = 0;
 			}
 			// nach links laufende Menschen
@@ -71,9 +71,9 @@ public class Entropy implements Steppable {
 				}
 				if (count != 0)
 					value += (double) count
-							/ (double) Config.numLeft
+							/ (double) Config.numTotalLeft
 							* Math.log((double) count
-									/ (double) Config.numLeft);
+									/ (double) Config.numTotalLeft);
 				count = 0;
 			}
 		}

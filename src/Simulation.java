@@ -33,53 +33,45 @@ public class Simulation extends SimState {
 		// Diese Ameisen werden
 		// auf dem Feld verteilt und dem Schedule zugeteilt.
 
-		for (int i = 0; i < Config.numRight; i++) {
-			Int2D position = null;
+		for (int i = 0; i < Config.numRightRule1; i++) {
+			Int2D position = findPosition();
 			Human hum;
-
-			do {
-				// Zufaellig Position wird generiert.
-				position = new Int2D(
-						(int) (this.area.getWidth() * random.nextDouble()),
-						(int) (this.area.getHeight() * random.nextDouble()));
-				Bag bag = this.area
-						.getObjectsAtLocation(position.x, position.y);
-				// Falls an dieser Position schon ein Objekt ist, wird Position
-				// wieder auf Null gesetzt und
-				// es wird eine neue Position berechnet, bis eine freie Position
-				// gefunden wurde.
-				if (bag != null && !bag.isEmpty())
-					position = null;
-			} while (position == null);
-			// Das Objekt wird an der generierten Position erzeugt.
-
-			hum = new Human(position, 1, 2, random.nextInt(Config.pausemax));
+			
+			hum = new Human(position, 1, 1, random.nextInt(Config.pausemax-Config.pausemin)+Config.pausemin);
 
 			area.setObjectLocation(hum, position);
 			schedule.scheduleRepeating(hum);
 
 		}
-		for (int i = 0; i < Config.numLeft; i++) {
-			Int2D position = null;
+		for (int i = 0; i < Config.numLeftRule1; i++) {
+			Int2D position = findPosition();
 			Human hum;
 
-			do {
-				// Zufaellig Position wird generiert.
-				position = new Int2D(
-						(int) (this.area.getWidth() * random.nextDouble()),
-						(int) (this.area.getHeight() * random.nextDouble()));
-				Bag bag = this.area
-						.getObjectsAtLocation(position.x, position.y);
-				// Falls an dieser Position schon ein Objekt ist, wird Position
-				// wieder auf Null gesetzt und
-				// es wird eine neue Position berechnet, bis eine freie Position
-				// gefunden wurde.
-				if (bag != null && !bag.isEmpty())
-					position = null;
-			} while (position == null);
 			// Das Objekt wird an der generierten Position erzeugt.
 
-			hum = new Human(position, -1, 2, random.nextInt(Config.pausemax));
+			hum = new Human(position, -1, 1, random.nextInt(Config.pausemax-Config.pausemin)+Config.pausemin);
+
+			area.setObjectLocation(hum, position);
+			schedule.scheduleRepeating(hum);
+
+		}
+		for (int i = 0; i < Config.numRightRule2; i++) {
+			Int2D position = findPosition();
+			Human hum;
+			
+			hum = new Human(position, 1, 2, random.nextInt(Config.pausemax-Config.pausemin)+Config.pausemin);
+
+			area.setObjectLocation(hum, position);
+			schedule.scheduleRepeating(hum);
+
+		}
+		for (int i = 0; i < Config.numLeftRule2; i++) {
+			Int2D position = findPosition();
+			Human hum;
+
+			// Das Objekt wird an der generierten Position erzeugt.
+
+			hum = new Human(position, -1, 2, random.nextInt(Config.pausemax-Config.pausemin)+Config.pausemin);
 
 			area.setObjectLocation(hum, position);
 			schedule.scheduleRepeating(hum);
@@ -105,13 +97,32 @@ public class Simulation extends SimState {
 			} while (position == null);
 			// Das Objekt wird an der generierten Position erzeugt.
 
-			hum = new Human(position, 0, 0, random.nextInt(Config.pausemax));
+			hum = new Human(position, 0, 0, random.nextInt(Config.pausemax-Config.pausemin)+Config.pausemin);
 
 			area.setObjectLocation(hum, position);
 			schedule.scheduleRepeating(hum);
 
 		}
 		entropy.step(this);
+	}
+
+	private Int2D findPosition() {
+		Int2D position=null;
+		do {
+			// Zufaellig Position wird generiert.
+			position = new Int2D(
+					(int) (this.area.getWidth() * random.nextDouble()),
+					(int) (this.area.getHeight() * random.nextDouble()));
+			Bag bag = this.area
+					.getObjectsAtLocation(position.x, position.y);
+			// Falls an dieser Position schon ein Objekt ist, wird Position
+			// wieder auf Null gesetzt und
+			// es wird eine neue Position berechnet, bis eine freie Position
+			// gefunden wurde.
+			if (bag != null && !bag.isEmpty())
+				position = null;
+		} while (position == null);
+		return position;
 	}
 
 	public static void main(String[] args) {
