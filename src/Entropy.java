@@ -46,7 +46,7 @@ public class Entropy implements Steppable {
 		Bag bag = sim.getArea().getAllObjects();
 		if (bag != null && !bag.isEmpty()) {
 			// nach rechts laufende Menschen
-			for (int y = 0; y < grid.getHeight(); y += Config.height / 5) {
+			for (int y = 0; y < grid.getHeight(); y += 1) {
 				for (Object object : bag) {
 					if (object instanceof Human
 							&& ((Human) object).getRightDirection()
@@ -63,7 +63,7 @@ public class Entropy implements Steppable {
 				count = 0;
 			}
 			// nach links laufende Menschen
-			for (int y = 0; y < grid.getHeight(); y += Config.height / 5) {
+			for (int y = 0; y < grid.getHeight(); y += 1) {
 				for (Object object : bag) {
 					if (object instanceof Human
 							&& !((Human) object).getRightDirection()
