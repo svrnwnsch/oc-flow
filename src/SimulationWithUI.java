@@ -127,8 +127,13 @@ public class SimulationWithUI extends GUIState {
 		areaPortrayal.setPortrayalForClass(Human.class, new RectanglePortrayal2D() {
 			public void draw(final Object object, final Graphics2D graphics,
 					final DrawInfo2D info) {
-				int alpha = 255-(150/(Config.pausemax-Config.pausemin)) *
-						(((Human) object).getPause()-Config.pausemin);
+				int alpha;
+				if(Config.pausemax==Config.pausemin){
+					
+					alpha = 255;
+				}else{
+				 alpha = 255-(150/(Config.pausemax-Config.pausemin)) *
+						(((Human) object).getPause()-Config.pausemin);}
 				if (((Human) object).getDirection()>0 && ((Human) object).getRule()==1) {
 					paint = new Color(153, 0, 155,alpha);
 				} 
