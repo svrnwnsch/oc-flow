@@ -36,8 +36,10 @@ public class Simulation extends SimState {
 		for (int i = 0; i < Config.numRightRule1; i++) {
 			Int2D position = findPosition();
 			Human hum;
-			
-			hum = new Human(position, 1, 1, random.nextInt(Config.pausemax-Config.pausemin)+Config.pausemin);
+
+			hum = new Human(position, 1, 1, random.nextInt(Config.pausemax
+					- Config.pausemin)
+					+ Config.pausemin);
 
 			area.setObjectLocation(hum, position);
 			schedule.scheduleRepeating(hum);
@@ -49,7 +51,9 @@ public class Simulation extends SimState {
 
 			// Das Objekt wird an der generierten Position erzeugt.
 
-			hum = new Human(position, -1, 1, random.nextInt(Config.pausemax-Config.pausemin)+Config.pausemin);
+			hum = new Human(position, -1, 1, random.nextInt(Config.pausemax
+					- Config.pausemin)
+					+ Config.pausemin);
 
 			area.setObjectLocation(hum, position);
 			schedule.scheduleRepeating(hum);
@@ -58,8 +62,13 @@ public class Simulation extends SimState {
 		for (int i = 0; i < Config.numRightRule2; i++) {
 			Int2D position = findPosition();
 			Human hum;
-			
-			hum = new Human(position, 1, 2, random.nextInt(Config.pausemax-Config.pausemin)+Config.pausemin);
+			if (Config.pausemax == 0) {
+				hum = new Human(position, 1, 2, 0);
+			} else {
+				hum = new Human(position, 1, 2, random.nextInt(Config.pausemax
+						- Config.pausemin)
+						+ Config.pausemin);
+			}
 
 			area.setObjectLocation(hum, position);
 			schedule.scheduleRepeating(hum);
@@ -70,8 +79,13 @@ public class Simulation extends SimState {
 			Human hum;
 
 			// Das Objekt wird an der generierten Position erzeugt.
-
-			hum = new Human(position, -1, 2, random.nextInt(Config.pausemax-Config.pausemin)+Config.pausemin);
+			if (Config.pausemax == 0) {
+				hum = new Human(position, -1, 2, 0);
+			} else {
+				hum = new Human(position, -1, 2, random.nextInt(Config.pausemax
+						- Config.pausemin)
+						+ Config.pausemin);
+			}
 
 			area.setObjectLocation(hum, position);
 			schedule.scheduleRepeating(hum);
@@ -96,8 +110,13 @@ public class Simulation extends SimState {
 					position = null;
 			} while (position == null);
 			// Das Objekt wird an der generierten Position erzeugt.
-
-			hum = new Human(position, 0, 0, random.nextInt(Config.pausemax-Config.pausemin)+Config.pausemin);
+			if (Config.pausemax == 0) {
+				hum = new Human(position, 0, 0, 0);
+			} else {
+				hum = new Human(position, 0, 0, random.nextInt(Config.pausemax
+						- Config.pausemin)
+						+ Config.pausemin);
+			}
 
 			area.setObjectLocation(hum, position);
 			schedule.scheduleRepeating(hum);
@@ -107,14 +126,13 @@ public class Simulation extends SimState {
 	}
 
 	private Int2D findPosition() {
-		Int2D position=null;
+		Int2D position = null;
 		do {
 			// Zufaellig Position wird generiert.
 			position = new Int2D(
 					(int) (this.area.getWidth() * random.nextDouble()),
 					(int) (this.area.getHeight() * random.nextDouble()));
-			Bag bag = this.area
-					.getObjectsAtLocation(position.x, position.y);
+			Bag bag = this.area.getObjectsAtLocation(position.x, position.y);
 			// Falls an dieser Position schon ein Objekt ist, wird Position
 			// wieder auf Null gesetzt und
 			// es wird eine neue Position berechnet, bis eine freie Position
@@ -129,13 +147,13 @@ public class Simulation extends SimState {
 		/*
 		 * Bei Aufruf der main Methode wird die doLoop Methode aufgerufen. ->
 		 * Die Simulation wird gestartet. Simulationsschritte: 1. Erzeugen einer
-		 * Instanz der SimState Klasse, der eine Zufallszahl �bergeben wird. 2.
-		 * Die start Methode wird aufgerufen, in der die Simulation
+		 * Instanz der SimState Klasse, der eine Zufallszahl �bergeben wird.
+		 * 2. Die start Methode wird aufgerufen, in der die Simulation
 		 * initialisiert wird. 3. Die step Methode wird immer wieder aufgerufen
 		 * was daf�r sorgt, dass die Agenten (wie im Schedule/Ablaufplan der
 		 * Simulation vorgegeben) einen Schritt/Step t�tigen. 4. Wenn der
-		 * Schedule keine Agenten mehr enth�lt / oder nach N Schritten wird die
-		 * Simulation beendet.
+		 * Schedule keine Agenten mehr enth�lt / oder nach N Schritten wird
+		 * die Simulation beendet.
 		 */
 		doLoop(Simulation.class, args);
 		System.exit(0);
