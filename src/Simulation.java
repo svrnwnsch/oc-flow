@@ -37,9 +37,13 @@ public class Simulation extends SimState {
 			Int2D position = findPosition();
 			Human hum;
 
-			hum = new Human(position, 1, 1, random.nextInt(Config.pausemax
-					- Config.pausemin)
-					+ Config.pausemin);
+			if (Config.pausemax == 0 ) {
+				hum = new Human(position, 1, 1, 0);
+			} else {
+				hum = new Human(position, 1, 1, random.nextInt(Config.pausemax
+						- Config.pausemin)
+						+ Config.pausemin);
+			}
 
 			area.setObjectLocation(hum, position);
 			schedule.scheduleRepeating(hum);
@@ -50,10 +54,13 @@ public class Simulation extends SimState {
 			Human hum;
 
 			// Das Objekt wird an der generierten Position erzeugt.
-
-			hum = new Human(position, -1, 1, random.nextInt(Config.pausemax
-					- Config.pausemin)
-					+ Config.pausemin);
+			if (Config.pausemax == 0 ) {
+				hum = new Human(position, -1, 1, 0);
+			} else {
+				hum = new Human(position, -1, 1, random.nextInt(Config.pausemax
+						- Config.pausemin)
+						+ Config.pausemin);
+			}
 
 			area.setObjectLocation(hum, position);
 			schedule.scheduleRepeating(hum);
@@ -62,7 +69,7 @@ public class Simulation extends SimState {
 		for (int i = 0; i < Config.numRightRule2; i++) {
 			Int2D position = findPosition();
 			Human hum;
-			if (Config.pausemax == 0) {
+			if (Config.pausemax == 0 ) {
 				hum = new Human(position, 1, 2, 0);
 			} else {
 				hum = new Human(position, 1, 2, random.nextInt(Config.pausemax
